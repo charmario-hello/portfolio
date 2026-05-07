@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charlotte Marvin — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blush: #E8C4B0;
+    --blush-light: #F5E6DC;
+    --blush-dark: #C9967A;
+    --cream: #FAF6F1;
+    --warm-white: #FFFDF9;
+    --sand: #E2D5C8;
+    --taupe: #8C7B6E;
+    --brown: #4A3728;
+    --text: #2C1F16;
+    --text-light: #7A6558;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.4;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--brown);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(232,196,176,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--blush);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    line-height: 1.0;
+    color: var(--warm-white);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--blush);
+  }
+
+  .hero-desc {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    line-height: 1.8;
+    color: rgba(250,246,241,0.6);
+    max-width: 320px;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .hero-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid rgba(232,196,176,0.3);
+    transition: all 0.3s ease;
+    width: fit-content;
+  }
+
+  .hero-link:hover {
+    background: var(--blush);
+    border-color: var(--blush);
+    color: var(--brown);
+  }
+
+  .hero-link .arrow {
+    transition: transform 0.3s ease;
+  }
+  .hero-link:hover .arrow { transform: translateX(4px); }
+
+  .hero-right {
+    background: var(--blush-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 5rem 4rem;
+    position: relative;
+  }
+
+  .hero-right::after {
+    content: 'CM';
+    position: absolute;
+    bottom: 3rem;
+    right: 3rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    font-weight: 300;
+    color: rgba(140,123,110,0.12);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--sand);
+    background: white;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 380px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+
+  .stat {
+    padding: 1.5rem;
+    background: white;
+    border-bottom: 2px solid var(--blush);
+  }
+
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: var(--brown);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--taupe);
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 4rem;
+    margin: 4rem 0 2rem;
+  }
+
+  .section-divider span {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    white-space: nowrap;
+  }
+
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--sand);
+  }
+
+  /* ── PORTFOLIO SECTION ── */
+  .portfolio {
+    padding: 2rem 4rem 6rem;
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .portfolio-card {
+    position: relative;
+    background: white;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+  }
+
+  .portfolio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(74,55,40,0.12);
+  }
+
+  .card-header {
+    padding: 3rem 2.5rem 2rem;
+    position: relative;
+  }
+
+  .card-header.dark {
+    background: var(--brown);
+  }
+
+  .card-header.light {
+    background: var(--blush-light);
+  }
+
+  .card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 1rem;
+    opacity: 0.2;
+  }
+
+  .card-header.dark .card-num { color: var(--blush); }
+  .card-header.light .card-num { color: var(--brown); }
+
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-header.dark .card-title { color: var(--warm-white); }
+  .card-header.light .card-title { color: var(--brown); }
+
+  .card-subtitle {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .card-header.dark .card-subtitle { color: var(--blush); }
+  .card-header.light .card-subtitle { color: var(--taupe); }
+
+  .card-body {
+    padding: 2rem 2.5rem;
+    border-top: 1px solid var(--blush-light);
+  }
+
+  .card-desc {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    padding: 0.25rem 0.65rem;
+    background: var(--cream);
+    border: 1px solid var(--sand);
+  }
+
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--brown);
+    font-weight: 500;
+    transition: gap 0.3s;
+  }
+
+  .portfolio-card:hover .card-cta { gap: 0.85rem; }
+
+  /* ── ABOUT STRIP ── */
+  .about-strip {
+    background: var(--brown);
+    padding: 5rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--blush-light);
+    line-height: 1.1;
+  }
+
+  .about-label em { font-style: italic; color: var(--blush); }
+
+  .about-text {
+    font-size: 0.9rem;
+    line-height: 2;
+    color: rgba(250,246,241,0.7);
+    font-weight: 300;
+  }
+
+  .about-text strong {
+    color: var(--blush-light);
+    font-weight: 400;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--cream);
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--sand);
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--brown);
+  }
+
+  .footer-contact {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--taupe);
+  }
+
+  .footer-contact a {
+    color: var(--taupe);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-contact a:hover { color: var(--brown); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 3rem 2rem; min-height: 60vh; }
+    .hero-right { padding: 3rem 2rem; }
+    .portfolio { padding: 2rem 2rem 4rem; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .about-strip { grid-template-columns: 1fr; padding: 3rem 2rem; gap: 2rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem; }
+    .section-divider { padding: 0 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Portfolio — 2026</p>
+    <h1 class="hero-name">Charlotte<br><em>Marvin</em></h1>
+    <p class="hero-desc">PR · Influencer Marketing · Brand Communications · Talent Strategy</p>
+    <nav class="hero-links">
+      <a href="#portfolio" class="hero-link">
+        View Work <span class="arrow">→</span>
+      </a>
+      <a href="https://linkedin.com/in/charlotte-marvin" target="_blank" class="hero-link">
+        LinkedIn <span class="arrow">↗</span>
+      </a>
+    </nav>
+  </div>
+
+  <div class="hero-right">
+    <div class="tag-list">
+      <span class="tag">TJX Companies</span>
+      <span class="tag">Later</span>
+      <span class="tag">Northeastern '26</span>
+      <span class="tag">Brand Management</span>
+      <span class="tag">Global Fashion Studies</span>
+      <span class="tag">Boston · New York</span>
+    </div>
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="stat-number">4.2M+</div>
+        <div class="stat-label">Impressions Delivered</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">2+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">3.97</div>
+        <div class="stat-label">GPA · Magna Cum Laude</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">Brand Campaigns</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<div class="section-divider reveal"><span>Selected Work</span></div>
+
+<section class="portfolio" id="portfolio">
+  <div class="portfolio-grid">
+
+    <!-- Card 1: Social Media Portfolio -->
+    <a href="https://drive.google.com/file/d/186Z39GFi-nN4deASfDCI9Tmqje8YdTlG/view?usp=sharing" target="_blank" class="portfolio-card reveal">
+      <div class="card-header dark">
+        <div class="card-num">01</div>
+        <h2 class="card-title">Social Media Portfolio</h2>
+        <p class="card-subtitle">Later · Quest · Uniqlo UK</p>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Creator sourcing, influencer campaign strategy, and content performance across TikTok and Instagram.</p>
+        <div class="card-tags">
+          <span class="card-tag">Influencer Strategy</span>
+          <span class="card-tag">Creator Sourcing</span>
+          <span class="card-tag">Campaign Reporting</span>
+          <span class="card-tag">TikTok · Instagram</span>
+        </div>
+        <span class="card-cta">View Deck →</span>
+      </div>
+    </a>
+
+    <!-- Card 2: Talent Marketing Portfolio -->
+    <a href="https://drive.google.com/file/d/1To2y1CdRhffBlG5PyeFWQblrNHunuB0p/view?usp=sharing" target="_blank" class="portfolio-card reveal" style="transition-delay: 0.15s">
+      <div class="card-header light">
+        <div class="card-num">02</div>
+        <h2 class="card-title">Talent Marketing Portfolio</h2>
+        <p class="card-subtitle">TJX Companies · Later</p>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">PR and talent partnerships across Mandy Moore, Ilona Maher, Alex Morgan, Madison Keys, and Hilary Knight. Includes creator strategy and cultural storytelling work.</p>
+        <div class="card-tags">
+          <span class="card-tag">Talent Partnerships</span>
+          <span class="card-tag">Earned PR</span>
+          <span class="card-tag">Cultural Storytelling</span>
+          <span class="card-tag">Influencer Relations</span>
+        </div>
+        <span class="card-cta">View Deck →</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div class="about-strip reveal">
+  <div class="about-label">About<br><em>Charlotte</em></div>
+  <p class="about-text">
+    Graduating senior at <strong>Northeastern University</strong> with a BS in International Business (Brand Management) and a Minor in Global Fashion Studies. Two co-ops at <strong>The TJX Companies</strong> and <strong>Later</strong> — working across earned PR, influencer marketing, and talent partnerships with names including Mandy Moore, Ilona Maher, Alex Morgan, and Madison Keys.<br><br>
+    Studied Fashion Industry and Trend Forecasting in <strong>Paris</strong>. Passionate about the intersection of luxury, culture, and the way brands tell stories that last. Based in Boston · New York.
+  </p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Charlotte Marvin</div>
+  <div class="footer-contact">
+    <a href="mailto:charlottemarvin77@gmail.com">charlottemarvin77@gmail.com</a>
+    &nbsp;·&nbsp;
+    +1 (914) 420-9573
+    &nbsp;·&nbsp;
+    Boston · New York
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
